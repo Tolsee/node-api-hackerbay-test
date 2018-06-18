@@ -1,0 +1,25 @@
+{
+  "name": "hacker-bay-week-1",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/Tolsee/hacker-bay-week-1.git",
+  "author": "Tolsee <tolsee3@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "build:watch": "gulp",
+    "build": "gulp scripts",
+    "prod": "node build/index.js"
+  },
+  "dependencies": {
+    "babel-plugin-transform-flow-strip-types": "^6.22.0",
+    "babel-polyfill": "^6.26.0",
+    "babel-preset-latest": "^6.24.1",
+    "gulp": "^3.9.1",
+    "gulp-babel": "^7.0.1",
+    "gulp-sourcemaps": "^2.6.4"
+  },
+  "devDependencies": {
+    "babel-core": "^6.26.3",
+    "gulp-flowtype": "^1.0.0"
+  }
+}

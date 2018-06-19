@@ -1,8 +1,17 @@
 // @flow
 
-function testFunc(item) {
-  return 10 * item;
-}
+'use strict'
 
-console.log(testFunc(2));
-console.log(testFunc('banana'));
+import * as http from 'http';
+import { normalizePort } from './utils';
+import App from './app';
+
+const port = normalizePort(process.env.PORT);
+
+// $FlowFixMe: express libdef issue
+const server: http.Server = http.createServer(App)
+
+server.listen(port, () => {
+  console.log(`${port} is the magic port!!`);
+});
+// server.on()

@@ -12,3 +12,9 @@ This repository serves as a weekly task of hackerbay university.
 `yarn start`
 
 `npm run start`
+
+## Test
+
+`yarn test`
+
+`npm run test`

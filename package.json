@@ -20,6 +20,7 @@
   },
   "devDependencies": {
     "babel-core": "^6.26.3",
+    "flow-bin": "^0.74.0",
     "gulp-flowtype": "^1.0.0"
   }
 }

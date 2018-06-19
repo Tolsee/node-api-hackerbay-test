@@ -13,7 +13,10 @@ gulp.task('scripts', () => {
 
 gulp.task('flow', () => {
   return gulp.src('src/**/*.js')
-    .pipe(flow({ killFlow: false }));
+    .pipe(flow({
+      killFlow: false,
+      declarations: './flow-typed'
+    }));
 });
 
 gulp.task('watch', ['flow', 'scripts'], () => {

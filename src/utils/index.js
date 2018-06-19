@@ -1,3 +1,4 @@
 import normalizePort from './normalizePort';
+import createController from './createController';
 
-export { normalizePort };
+export { normalizePort, createController};

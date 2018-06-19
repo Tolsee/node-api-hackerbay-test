@@ -14,4 +14,5 @@ const server: http.Server = http.createServer(App)
 server.listen(port, () => {
   console.log(`${port} is the magic port!!`);
 });
-// server.on()
+
+export default server;

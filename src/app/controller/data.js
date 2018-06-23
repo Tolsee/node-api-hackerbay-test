@@ -3,7 +3,7 @@
 
 const Get = (req: Object, res: Object) => {
   return res.status(200).json({
-    data: 'Aby string'
+    data: 'Any string'
   });
 };
 

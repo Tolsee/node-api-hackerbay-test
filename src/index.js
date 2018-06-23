@@ -1,6 +1,5 @@
 // @flow
-
-'use strict'
+'use strict';
 
 import * as http from 'http';
 import { normalizePort } from './utils';

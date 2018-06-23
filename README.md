@@ -1,4 +1,4 @@
-# hacker-bay-week-1
+# hacker-bay-week-2
 This repository serves as a weekly task of hackerbay university.
 
 ## Installation

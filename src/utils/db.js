@@ -23,6 +23,7 @@ type appType = {
 
 const createModal = (app: appType) => (model: Function) => {
   const newModel = model(sequelize, Sequelize);
+  console.log(model, model.name);
   app.models[model.name] = newModel;
 };
 

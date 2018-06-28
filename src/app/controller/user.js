@@ -12,14 +12,17 @@ const Get = (models: args) => (req: Object, res: Object) => {
   // POST /signup
   // From same file
   console.log(models);
-  models.User.create({
-    firstName: 'Tulsi',
-    lastName: 'Sapkota'
-  }).then(() => {
-    return res.status(200).json({
-      success: true
+  models.User.sync()
+    .then(() => {
+      return models.User.create({
+        firstName: 'Tulsi',
+        lastName: 'Sapkota'
+      })
+    }).then(() => {
+      return res.status(200).json({
+        success: true
+      });
     });
-  });
 };
 
 export { Get };

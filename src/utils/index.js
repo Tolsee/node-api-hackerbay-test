@@ -1,4 +1,8 @@
-import normalizePort from './normalizePort';
-import createController from './createController';
+// @flow
+'use strict';
 
-export { normalizePort, createController};
+import normalizePort from './normalizePort';
+import { createApi, createRoute } from './controller';
+import { sequelize, createModal } from './db';
+
+export { normalizePort, createApi, createRoute, sequelize, createModal };

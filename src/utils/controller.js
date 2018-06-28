@@ -15,7 +15,6 @@ const createApi = (app: appType) => (path: string, verbs: Object, Router: expres
   for (let verb in verbs) {
     const verbFunction: string = verb.toLowerCase();
     if (verbsAllowed.indexOf(verbFunction) === -1) return;
-    console.log(app.models);
     // $FlowIgnore:
     Router[verbFunction](path, verbs[verb](app.models));
     app.routes.push(`${verb} ${path}`);

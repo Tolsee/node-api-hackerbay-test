@@ -1,10 +1,15 @@
+// @flow
+'use strict';
+
 import express from 'express';
 import bodyParser from 'body-parser';
 import fs from 'fs';
 import path from 'path';
 import rfs from 'rotating-file-stream';
 import morgan from 'morgan';
-import createController from "../utils/createController";
+
+console.log(process.env);
+import { createController, sequelize, createModal } from "../utils";
 
 import * as index from './controller';
 import * as data from './controller/data';

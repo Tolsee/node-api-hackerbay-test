@@ -2,13 +2,11 @@
 'use strict';
 
 import * as http from 'http';
-import dotenv from 'dotenv';
 
 import { normalizePort } from './utils';
 import App from './app';
 
-// Import environmental variables
-dotenv.config();
+
 
 const port = normalizePort(process.env.PORT);
 

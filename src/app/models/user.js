@@ -1,17 +1,16 @@
 // @flow
 'use strict';
-import Sequelize from 'sequelize';
 
-export default function User(sequelize: any) {
+export default function User(sequelize: any, DataTypes: any) {
   const User = sequelize.define('user', {
     firstName: {
-      type: Sequelize.STRING
+      type: DataTypes.STRING
     },
     lastName: {
-      type: Sequelize.STRING
+      type: DataTypes.STRING
     },
     password: {
-      type: Sequelize.STRING
+      type: DataTypes.STRING
     }
   });
 

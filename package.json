@@ -7,7 +7,7 @@
   "license": "MIT",
   "scripts": {
     "build:watch": "gulp",
-    "build": "gulp scripts",
+    "build": "gulp flow scripts",
     "start": "yarn build && node -r dotenv/config build/index.js",
     "test": "yarn build && ./node_modules/mocha/bin/mocha --compilers js:babel-core/register test/**/*.js"
   },

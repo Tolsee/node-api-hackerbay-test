@@ -8,11 +8,14 @@ import path from 'path';
 import rfs from 'rotating-file-stream';
 import morgan from 'morgan';
 
-console.log(process.env);
-import { createController, sequelize, createModal } from "../utils";
+import { createApi, createRoute, createModal } from "../utils";
 
-import * as index from './controller';
-import * as data from './controller/data';
+// Import models
+import User from './models/user';
+
+// Import controllers
+import * as pingController from './controller/ping';
+import * as userController from './controller/user';
 
 const app = express();
 const Router = express.Router();
@@ -27,17 +30,40 @@ const accessLogStream = rfs((time, index) => time ? `${time.getFullYear()}-${tim
   path: accessLog
 });
 const logger = morgan('short', { stream: accessLogStream});
-
 app.use(logger);
 
+/*
+* ----------------
+* App Data
+* ----------------
+* */
+const appData : {
+  models: Object,
+  routes: []
+} = {
+  models: {},
+  routes: []
+};
+
+/*
+* ----------------
+* Model
+* Setup
+* ----------------
+* */
+const model = createModal(appData);
+
+model(User);
 /*
 * ----------------
 * Router
 * Setup
 * ----------------
 * */
-createController('/', index, Router);
-createController('/data', data, Router);
+const api = createApi(appData);
+
+api('/ping', pingController, Router);
+api('/user', userController, Router);
 
 app.use(Router);
 

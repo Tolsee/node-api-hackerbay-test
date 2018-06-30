@@ -2,6 +2,7 @@
 'use strict';
 
 import express from 'express';
+import passport from 'passport';
 import bodyParser from 'body-parser';
 import fs from 'fs';
 import path from 'path';
@@ -9,6 +10,9 @@ import rfs from 'rotating-file-stream';
 import morgan from 'morgan';
 
 import { createApi, createRoute, createModal } from "../utils";
+
+// Import auth
+import auth from './auth/passport';
 
 // Import models
 import User from './models/user';
@@ -22,6 +26,9 @@ const Router = express.Router();
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+
+// Employ passport
+app.use(passport.initialize());
 
 const accessLog = path.join(__dirname, '../../logs');
 fs.existsSync(accessLog) || fs.mkdirSync(accessLog);
@@ -54,6 +61,15 @@ const appData : {
 const model = createModal(appData);
 
 model(User);
+
+/*
+* ----------------
+* Auth
+* Setup
+* ----------------
+* */
+auth(appData.models);
+
 /*
 * ----------------
 * Router
@@ -61,9 +77,12 @@ model(User);
 * ----------------
 * */
 const api = createApi(appData);
+const route = createRoute(appData);
 
 api('/ping', pingController, Router);
 api('/user', userController, Router);
+route('/user/login', 'post', userController.login, Router);
+route('/user/signup', 'post', userController.signup, Router);
 
 app.use(Router);
 

@@ -5,7 +5,7 @@ import server from '../../build';
 
 chai.use(chaiHttp);
 
-describe('GET / route', function() {
+describe('GET /ping route', function() {
   it('should return success', done => {
     chai.request(server)
       .get('/')

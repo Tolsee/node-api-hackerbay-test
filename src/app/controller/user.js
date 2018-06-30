@@ -1,28 +1,56 @@
 // @flow
 'use strict';
+
+import passport from 'passport';
+import jwt from 'jsonwebtoken';
+
 type args = {
   User: any
 };
 
-const Get = (models: args) => (req: Object, res: Object) => {
-  // Todo
-  // Add ability to set different routes from same file
-  // for ex:
-  // POST /login
-  // POST /signup
-  // From same file
-  console.log(models);
-  models.User.sync()
-    .then(() => {
-      return models.User.create({
-        firstName: 'Tulsi',
-        lastName: 'Sapkota'
-      })
-    }).then(() => {
+const signup = (models: args) => (req: Object, res: Object, next: Object) => {
+  passport.authenticate('signup', {session: false}, (err, user, info) => {
+    if (err || !user) {
+      return res.status(400).json({
+        error: (err && err.message) || (info && info.error) || 'something is not right.'
+      });
+    }
+    req.login(user, {session: false}, (err) => {
+      if (err) {
+        return res.status(500).json({
+          error: err
+        });
+      }
+      const token = jwt.sign(user, process.env.JWT_SECRET);
       return res.status(200).json({
-        success: true
+        session: token
       });
     });
+  })(req, res);
 };
 
-export { Get };
+const login = (models: args) => (req: Object, res: Object, next: Object) => {
+  passport.authenticate('login', {session: false}, (err, user, info) => {
+    if (err || !user) {
+      return res.status(400).json({
+        error: (err && err.message) || (info && info.error) || 'something is not right.'
+      });
+    }
+
+    // Is this necessary?
+    // Cause passport js says that req.login() is called automatically after passport.authenticate
+    req.login(user, {session: false}, (err) => {
+      if (err) {
+        return res.status(500).json({
+          error: err
+        });
+      }
+      const token = jwt.sign(user, process.env.JWT_SECRET);
+      return res.status(200).json({
+       session: token
+      });
+    });
+  })(req, res);
+};
+
+export { login, signup };

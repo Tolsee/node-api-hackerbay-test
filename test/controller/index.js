@@ -8,7 +8,7 @@ chai.use(chaiHttp);
 describe('GET /ping route', function() {
   it('should return success', done => {
     chai.request(server)
-      .get('/')
+      .get('/ping')
       .end(function(err, res){
         expect(err).to.be.null;
         expect(res).to.have.status(200);

@@ -80,7 +80,8 @@ const api = createApi(appData);
 const route = createRoute(appData);
 
 api('/ping', pingController, Router);
-api('/user', userController, Router);
+
+// Auth routes
 route('/user/login', 'post', userController.login, Router);
 route('/user/signup', 'post', userController.signup, Router);
 

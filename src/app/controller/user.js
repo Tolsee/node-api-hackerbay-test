@@ -10,6 +10,10 @@ type args = {
 
 const signup = (models: args) => (req: Object, res: Object, next: Object) => {
   passport.authenticate('signup', {session: false}, (err, user, info) => {
+    // Todo
+    // Here some how even after return statement, program's flow goes to next line
+    // Creating error: Can't set headers after they are sent.
+
     if (err || !user) {
       return res.status(400).json({
         error: (err && err.message) || (info && info.error) || 'something is not right.'

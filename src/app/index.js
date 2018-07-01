@@ -8,6 +8,7 @@ import fs from 'fs';
 import path from 'path';
 import rfs from 'rotating-file-stream';
 import morgan from 'morgan';
+import dotenv from 'dotenv';
 
 import { createApi, createRoute, createModal } from "../utils";
 
@@ -30,6 +31,8 @@ app.use(bodyParser.json());
 // Employ passport
 app.use(passport.initialize());
 
+
+// Logger
 const accessLog = path.join(__dirname, '../../logs');
 fs.existsSync(accessLog) || fs.mkdirSync(accessLog);
 const accessLogStream = rfs((time, index) => time ? `${time.getFullYear()}-${time.getMonth()}-${time.getDate()}-${index}.log` : `access-${index}.log`, {
@@ -87,4 +90,4 @@ route('/user/signup', 'post', userController.signup, Router);
 
 app.use(Router);
 
-export default app;
+export { app, appData };

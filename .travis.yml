@@ -9,7 +9,7 @@ services:
   - postgresql
 env:
 script:
-  - codecovtrevi
   - npm test
+  - codecov
 
 

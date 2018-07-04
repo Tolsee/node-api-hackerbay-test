@@ -1,7 +1,7 @@
 import chai from 'chai';
 import { expect } from 'chai';
 import chaiHttp from 'chai-http';
-import { server, appData } from '../../build';
+import { server, appData, sequelize } from '../../build';
 
 chai.use(chaiHttp);
 
@@ -80,4 +80,8 @@ describe('Login', function() {
         done();
       })
   });
+});
+
+after(function () {
+  sequelize.close();
 });

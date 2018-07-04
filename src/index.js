@@ -4,6 +4,7 @@
 import * as http from 'http';
 import { normalizePort } from './utils';
 import { app, appData } from './app';
+import { sequelize } from "./utils";
 
 const port = normalizePort(process.env.PORT);
 
@@ -13,4 +14,4 @@ server.listen(port, () => {
   console.log(`${port} is the magic port!!`);
 });
 
-export { server, appData };
+export { server, appData, sequelize };

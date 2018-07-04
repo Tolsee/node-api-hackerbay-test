@@ -8,6 +8,9 @@ install:
 services:
   - postgresql
 env:
+before_script:
+  - psql -c 'create database more_recipes_test;' -U postgres
+  - psql -c "CREATE USER root WITH PASSWORD 'password';" -U postgres
 script:
   - npm test
   - codecov

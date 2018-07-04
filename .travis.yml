@@ -1,0 +1,16 @@
+language: node_js
+node_js:
+  - "stable"
+install:
+  - npm install -g codecov
+  - npm install -g gulp-cli
+  - npm install
+services:
+  - postgresql
+env:
+script:
+  - istanbul cover ./node_modules/mocha/bin/_mocha --reporter lcovonly -- -R spec
+  - codecovtrevi
+  - npm test
+
+

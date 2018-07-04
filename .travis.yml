@@ -8,9 +8,14 @@ install:
 services:
   - postgresql
 env:
+  - PORT=8000
+  - DATABASE_NAME=sequelize
+  - DATABASE_USER=postgres
+  - DATABASE_PASSWORD=postgres
+  - JWT_SECRET=verysecretkey&*()=%
 before_script:
-  - psql -c 'create database travis;' -U postgres
-  - psql -c "CREATE USER root WITH PASSWORD 'password';" -U postgres
+  - psql -c 'create database sequelize;' -U postgres
+  - psql -c "CREATE USER root WITH PASSWORD 'postgres';" -U postgres
 script:
   - npm test
   - codecov

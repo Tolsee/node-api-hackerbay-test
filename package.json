@@ -36,8 +36,10 @@
     "babel-core": "^6.26.3",
     "chai": "^4.1.2",
     "chai-http": "^4.0.0",
+    "codecov": "^3.0.2",
     "flow-bin": "^0.74.0",
     "gulp-flowtype": "^1.0.0",
+    "istanbul": "^0.4.5",
     "mocha": "^5.2.0"
   }
 }

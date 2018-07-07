@@ -16,14 +16,4 @@ sequelize
     throw err;
   });
 
-type appType = {
-  models: Object,
-  routes: []
-};
-
-const createModal = (app: appType) => (model: Function) => {
-  const newModel = model(sequelize, Sequelize);
-  app.models[model.name] = newModel;
-};
-
-export { sequelize, createModal };
+export { sequelize };

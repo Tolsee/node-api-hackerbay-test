@@ -4,11 +4,7 @@
 import passport from 'passport';
 import jwt from 'jsonwebtoken';
 
-type args = {
-  User: any
-};
-
-const signup = (models: args) => (req: Object, res: Object, next: Object) => {
+const signup = (req: Object, res: Object, next: Object) => {
   passport.authenticate('signup', {session: false}, (err, user, info) => {
     // Todo
     // Here some how even after return statement, program's flow goes to next line
@@ -33,7 +29,7 @@ const signup = (models: args) => (req: Object, res: Object, next: Object) => {
   })(req, res);
 };
 
-const login = (models: args) => (req: Object, res: Object, next: Object) => {
+const login = (req: Object, res: Object, next: Object) => {
   passport.authenticate('login', {session: false}, (err, user, info) => {
     if (err || !user) {
       return res.status(400).json({

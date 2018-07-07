@@ -6,12 +6,10 @@ import passwordHash from 'password-hash';
 import { Strategy as LocalStrategy }from 'passport-local';
 import passportJWT from 'passport-jwt';
 
+import { User } from "../models";
+
 const JWTStrategy   = passportJWT.Strategy;
 const ExtractJWT = passportJWT.ExtractJwt;
-
-type args = {
-  User: any
-};
 
 // Todo
 // 1. We need to store token somewhere
@@ -19,25 +17,25 @@ type args = {
 // 3. We need to destroy saved tokens on logout
 // 4. We need to delete all tokens on password reset
 
-export default (models: args) => {
+export default () => {
   passport.use('signup', new LocalStrategy({
     usernameField: 'email',
     passwordField: 'password'
   }, function (email, password, cb) {
-    return models.User.findOne({ where: { email } })
+    return User.findOne({ where: { email } })
       .then(user => {
         if (user) {
           return cb(null, false, {error: 'User already exists.'});
         }
 
-        return models.User.sync();
+        return User.sync();
       })
       .then(() => {
         password = passwordHash.generate(password);
-        return models.User.create({ email, password });
+        return User.create({ email, password });
       })
       .then(() => {
-        return models.User.findOne({ where: { email } });
+        return User.findOne({ where: { email } });
       })
       .then((user) => {
         return cb(null, user.dataValues);
@@ -49,7 +47,7 @@ export default (models: args) => {
       usernameField: 'email',
       passwordField: 'password'
     }, function (email, password, cb) {
-      return models.User.findOne({ where: { email } })
+      return User.findOne({ where: { email } })
         .then(user => {
           if (!user) {
             return cb(null, false, {error: 'User does not exist.'});
@@ -69,7 +67,7 @@ export default (models: args) => {
       secretOrKey   : 'your_jwt_secret'
     },
     function (jwtPayload, cb) {
-      return models.User.findById(jwtPayload.id)
+      return User.findById(jwtPayload.id)
         .then(user => {
           return cb(null, user);
         })

@@ -11,5 +11,7 @@ export default function User(sequelize: any, DataTypes: any) {
     }
   });
 
+  User.sync();
+
   return User;
 }

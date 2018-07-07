@@ -7,7 +7,6 @@ import express from 'express';
 const verbsAllowed = ['get', 'post', 'patch', 'put', 'delete'];
 
 type appType = {
-  models: Object,
   routes: []
 };
 
@@ -16,7 +15,7 @@ const createApi = (app: appType) => (path: string, verbs: Object, Router: expres
     const verbFunction: string = verb.toLowerCase();
     if (verbsAllowed.indexOf(verbFunction) === -1) return;
     // $FlowIgnore:
-    Router[verbFunction](path, verbs[verb](app.models));
+    Router[verbFunction](path, verbs[verb]);
     app.routes.push(`${verb} ${path}`);
   }
   return Router;
@@ -24,7 +23,8 @@ const createApi = (app: appType) => (path: string, verbs: Object, Router: expres
 
 const createRoute = (app: appType) => (path: string, verb: string, handler: Function, Router: express.Router) => {
   // $FlowIgnore:
-  Router[verb](path, handler(app.models));
+  Router[verb](path, handler);
+  app.routes.push(`${verb} ${path}`);
   return Router
 };
 

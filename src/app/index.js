@@ -8,19 +8,15 @@ import fs from 'fs';
 import path from 'path';
 import rfs from 'rotating-file-stream';
 import morgan from 'morgan';
-import dotenv from 'dotenv';
 
-import { createApi, createRoute, createModal } from "../utils";
+import { createApi, createRoute } from "../utils";
 
 // Import auth
 import auth from './auth/passport';
 
-// Import models
-import User from './models/user';
-
 // Import controllers
 import * as pingController from './controller/ping';
-import * as userController from './controller/user';
+import * as userController from './controller/auth';
 
 const app = express();
 const Router = express.Router();
@@ -48,22 +44,11 @@ app.use(logger);
 * ----------------
 * */
 const appData : {
-  models: Object,
   routes: []
 } = {
-  models: {},
   routes: []
 };
 
-/*
-* ----------------
-* Model
-* Setup
-* ----------------
-* */
-const model = createModal(appData);
-
-model(User);
 
 /*
 * ----------------
@@ -71,7 +56,7 @@ model(User);
 * Setup
 * ----------------
 * */
-auth(appData.models);
+auth();
 
 /*
 * ----------------
@@ -89,5 +74,8 @@ route('/user/login', 'post', userController.login, Router);
 route('/user/signup', 'post', userController.signup, Router);
 
 app.use(Router);
+
+console.info('Routes');
+appData.routes.forEach(route => console.info(route));
 
 export { app, appData };

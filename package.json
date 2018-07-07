@@ -9,7 +9,8 @@
     "build:watch": "gulp",
     "build": "gulp flow scripts",
     "start": "yarn build && node -r dotenv/config build/index.js",
-    "test": "yarn build && nyc mocha -r dotenv/config --compilers js:babel-core/register test/**/*.js && codecov"
+    "test": "yarn build && nyc mocha -r dotenv/config --compilers js:babel-core/register test/**/*.js",
+    "report-coverage": "nyc report --reporter=text-lcov > coverage.lcov && codecov"
   },
   "dependencies": {
     "babel-plugin-transform-flow-strip-types": "^6.22.0",

@@ -1,22 +1,21 @@
 import chai from 'chai';
 import { expect } from 'chai';
 import chaiHttp from 'chai-http';
-import { server, appData, sequelize } from '../../build';
+import { server, sequelize } from '../../build';
+import { User } from '../../build/app/models'
 
 chai.use(chaiHttp);
-
-const { User } = appData.models;
 
 // Todo
 // 1. Make different database for testing
 // 2. Test stays on a idle, process does not end
 describe('Sign up', function() {
   // Delete all users
-  before(function () {
+  before(function (done) {
     User.destroy({
       where: {},
       truncate: true
-    });
+    }).then(() => done());
   });
 
   it('should sign up successfully', done => {

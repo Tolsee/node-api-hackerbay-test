@@ -19,6 +19,6 @@ before_script:
   - psql -c "CREATE USER root WITH PASSWORD 'postgres';" -U postgres
 script:
   - npm test
-  - codecov
+  - codecov -e
 
 

@@ -14,8 +14,9 @@ env:
     - PORT=8000
     - JWT_SECRET=verysecretkey&*()=%
 before_script:
-  - sequelize db:create
+  - cd ./src/app && sequelize db:create
   - sequelize db:migrate
+  - cd ../..
 script:
   - npm run test
   - npm run report-coverage

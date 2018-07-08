@@ -11,6 +11,13 @@ gulp.task('scripts', () => {
     .pipe(gulp.dest('build'));
 });
 
+gulp.task('json', () => {
+  return gulp.src('src/**/*.json')
+    .pipe(sourcemaps.init())
+    .pipe(sourcemaps.write('.'))
+    .pipe(gulp.dest('build'));
+});
+
 gulp.task('flow', () => {
   return gulp.src('src/**/*.js')
     .pipe(flow({

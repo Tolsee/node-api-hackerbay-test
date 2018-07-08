@@ -3,8 +3,7 @@
 
 import * as http from 'http';
 import { normalizePort } from './utils';
-import { app, appData } from './app';
-import { sequelize } from "./utils";
+import { app, appData, sequelize } from './app';
 
 const port = normalizePort(process.env.PORT);
 

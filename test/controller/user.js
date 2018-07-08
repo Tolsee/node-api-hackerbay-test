@@ -8,7 +8,7 @@ chai.use(chaiHttp);
 
 // Todo
 // 1. Make different database for testing
-// 2. Test stays on a idle, process does not end
+
 describe('Sign up', function() {
   // Delete all users
   before(function (done) {

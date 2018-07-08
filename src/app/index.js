@@ -18,6 +18,9 @@ import auth from './auth/passport';
 import * as pingController from './controller/ping';
 import * as userController from './controller/auth';
 
+// Import sequelize
+import { sequelize } from "./models";
+
 const app = express();
 const Router = express.Router();
 
@@ -78,4 +81,4 @@ app.use(Router);
 console.info('Routes');
 appData.routes.forEach(route => console.info(route));
 
-export { app, appData };
+export { app, appData, sequelize };

@@ -1,17 +1,11 @@
-// @flow
 'use strict';
-
-export default function User(sequelize: any, DataTypes: any) {
-  const User = sequelize.define('user', {
-    email: {
-      type: DataTypes.STRING
-    },
-    password: {
-      type: DataTypes.STRING
-    }
-  });
-
-  User.sync();
-
+module.exports = (sequelize, DataTypes) => {
+  var User = sequelize.define('User', {
+    email: DataTypes.STRING,
+    password: DataTypes.STRING
+  }, {});
+  User.associate = function(models) {
+    // associations can be defined here
+  };
   return User;
-}
+};

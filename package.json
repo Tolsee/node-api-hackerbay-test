@@ -7,7 +7,7 @@
   "license": "MIT",
   "scripts": {
     "build:watch": "gulp",
-    "build": "gulp flow scripts",
+    "build": "gulp flow scripts json",
     "start": "yarn build && node -r dotenv/config build/index.js",
     "test": "yarn build && nyc mocha -r dotenv/config --compilers js:babel-core/register test/**/*.js",
     "report-coverage": "nyc report --reporter=text-lcov > coverage.lcov && codecov"
@@ -17,6 +17,7 @@
     "babel-polyfill": "^6.26.0",
     "babel-preset-latest": "^6.24.1",
     "body-parser": "^1.18.3",
+    "cors": "^2.8.4",
     "dotenv": "^6.0.0",
     "express": "^4.16.3",
     "gulp": "^3.9.1",

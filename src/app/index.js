@@ -10,7 +10,8 @@ import rfs from 'rotating-file-stream';
 import morgan from 'morgan';
 import cors from 'cors';
 
-import { createApi, createRoute } from "../utils";
+import { createApi, createRoute } from '../utils';
+import { auth as authMiddleware } from './middleware';
 
 // Import auth
 import auth from './auth/passport';
@@ -72,11 +73,18 @@ auth();
 const api = createApi(appData);
 const route = createRoute(appData);
 
-api('/ping', pingController, Router);
+// Ping route
+const PingRoute = api('/ping', pingController);
+
+Router.use('/', PingRoute);
 
 // Auth routes
-route('/user/login', 'post', userController.login, Router);
-route('/user/signup', 'post', userController.signup, Router);
+const LoginRoute = route('/login', 'post', userController.login);
+const SignupRoute = route('/signup', 'post', userController.signup);
+
+
+Router.use('/user', LoginRoute);
+Router.use('/user', SignupRoute);
 
 app.use(Router);
 

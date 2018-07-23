@@ -6,11 +6,12 @@ import passwordHash from 'password-hash';
 import { Strategy as LocalStrategy }from 'passport-local';
 import passportJWT from 'passport-jwt';
 
-import { User } from "../models";
+import models from "../models";
 
 const JWTStrategy   = passportJWT.Strategy;
 const ExtractJWT = passportJWT.ExtractJwt;
 
+const { User } = models;
 // Todo
 // 1. We need to store token somewhere
 // 2. We need to check if token if it's stored or not while authenticating
@@ -44,32 +45,36 @@ export default () => {
   }));
 
   passport.use('login', new LocalStrategy({
-      usernameField: 'email',
-      passwordField: 'password'
-    }, function (email, password, cb) {
-      return User.findOne({ where: { email } })
-        .then(user => {
-          if (!user) {
-            return cb(null, false, {error: 'User does not exist.'});
-          }
+    usernameField: 'email',
+    passwordField: 'password'
+  }, function (email, password, cb) {
+    return User.findOne({ where: { email } })
+      .then(user => {
+        if (!user) {
+          return cb(null, false, {error: 'User does not exist.'});
+        }
 
-          if(passwordHash.verify(password, user.dataValues.password)) {
-            return cb(null, user.dataValues);
-          } else {
-            return cb(null, false, {error: 'Invalid Password.'});
-          }
-        })
-        .catch(err => cb(err));
+        if(passwordHash.verify(password, user.dataValues.password)) {
+          return cb(null, user.dataValues);
+        } else {
+          return cb(null, false, {error: 'Invalid Password.'});
+        }
+      })
+      .catch(err => cb(err));
   }));
 
   passport.use('auth-check', new JWTStrategy({
       jwtFromRequest: ExtractJWT.fromAuthHeaderAsBearerToken(),
-      secretOrKey   : 'your_jwt_secret'
+      secretOrKey   : process.env.JWT_SECRET
     },
     function (jwtPayload, cb) {
       return User.findById(jwtPayload.id)
         .then(user => {
-          return cb(null, user);
+          if (user) {
+            return cb(null, user);
+          } else {
+            return cb(null, null, { message: 'User not authorized!' });
+          }
         })
         .catch(err => {
           return cb(err);

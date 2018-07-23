@@ -1,10 +1,9 @@
 // @flow
-'use strict';
 
 import passport from 'passport';
 import jwt from 'jsonwebtoken';
 
-const signup = (req: Object, res: Object, next: Object) => {
+export const signup = (req: Object, res: Object, next: Function) => {
   passport.authenticate('signup', {session: false}, (err, user, info) => {
     // Todo
     // Here some how even after return statement, program's flow goes to next line
@@ -29,7 +28,7 @@ const signup = (req: Object, res: Object, next: Object) => {
   })(req, res);
 };
 
-const login = (req: Object, res: Object, next: Object) => {
+export const login = (req: Object, res: Object, next: Function) => {
   passport.authenticate('login', {session: false}, (err, user, info) => {
     if (err || !user) {
       return res.status(400).json({
@@ -47,10 +46,9 @@ const login = (req: Object, res: Object, next: Object) => {
       }
       const token = jwt.sign(user, process.env.JWT_SECRET);
       return res.status(200).json({
-       session: token
+        session: token
       });
     });
   })(req, res);
 };
 
-export { login, signup };

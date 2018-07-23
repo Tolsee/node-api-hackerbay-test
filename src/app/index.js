@@ -19,6 +19,8 @@ import auth from './auth/passport';
 // Import controllers
 import * as pingController from './controller/ping';
 import * as userController from './controller/auth';
+import * as patchController from './controller/patch';
+import * as thumbnailController from './controller/thumbnail';
 
 // Import sequelize
 import db from "./models";
@@ -83,9 +85,14 @@ Router.use('/', PingRoute);
 const LoginRoute = route('/login', 'post', userController.login);
 const SignupRoute = route('/signup', 'post', userController.signup);
 
+const PatchRoute = api('/patch', patchController);
+const thumbnailRoute = api('/thumbnail', thumbnailController);
 
 Router.use('/user', LoginRoute);
 Router.use('/user', SignupRoute);
+
+Router.use('/', PatchRoute);
+Router.use('/', thumbnailRoute);
 
 app.use(Router);
 

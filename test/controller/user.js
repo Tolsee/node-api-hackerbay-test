@@ -2,7 +2,9 @@ import chai from 'chai';
 import { expect } from 'chai';
 import chaiHttp from 'chai-http';
 import { server, sequelize } from '../../build';
-import { User } from '../../build/app/models'
+import models from '../../build/app/models'
+
+const { User } = models;
 
 chai.use(chaiHttp);
 
@@ -21,7 +23,7 @@ describe('Sign up', function() {
   it('should sign up successfully', done => {
     chai.request(server)
       .post('/user/signup')
-      .send({ email: 'hello@gmail.com', password: 'correctpassword' })
+      .send({ username: 'hellouser', password: 'correctpassword' })
       .end(function(err, res){
         expect(err).to.be.null;
         expect(res).to.have.status(200);
@@ -33,7 +35,7 @@ describe('Sign up', function() {
   it('should not sign up with same password', done => {
     chai.request(server)
       .post('/user/signup')
-      .send({ email: 'hello@gmail.com', password: 'correctpassword' })
+      .send({ username: 'hellouser', password: 'correctpassword' })
       .end(function(err, res){
         expect(err).to.be.null;
         expect(res).to.have.status(400);
@@ -47,7 +49,7 @@ describe('Login', function() {
   it('should login user successfully', done => {
     chai.request(server)
       .post('/user/login')
-      .send({ email: 'hello@gmail.com', password: 'correctpassword' })
+      .send({ username: 'hellouser', password: 'correctpassword' })
       .end(function(err, res){
         expect(err).to.be.null;
         expect(res).to.have.status(200);
@@ -56,10 +58,10 @@ describe('Login', function() {
       })
   });
 
-  it('should send appropriate error when email is wrong', done => {
+  it('should send appropriate error when username is wrong', done => {
     chai.request(server)
       .post('/user/login')
-      .send({ email: 'hell@gmail.com', password: 'correctpassword' })
+      .send({ username: 'wronguser', password: 'correctpassword' })
       .end(function(err, res){
         expect(err).to.be.null;
         expect(res).to.have.status(400);
@@ -71,7 +73,7 @@ describe('Login', function() {
   it('should send appropriate error when password is wrong', done => {
     chai.request(server)
       .post('/user/login')
-      .send({ email: 'hello@gmail.com', password: 'wrongpassword' })
+      .send({ username: 'hellouser', password: 'wrongpassword' })
       .end(function(err, res){
         expect(err).to.be.null;
         expect(res).to.have.status(400);

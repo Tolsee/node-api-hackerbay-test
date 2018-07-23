@@ -10,7 +10,11 @@ type appType = {
   routes: []
 };
 
-const createApi = (app: appType) => (path: string, verbs: Object, Router: express.Router) => {
+const createApi = (app: appType) => (path: string, verbs: Object, options: Object = {}) => {
+  const Router = express.Router();
+  const { middleware } = options;
+  if (middleware) middleware.forEach((fn) => Router.use(fn));
+
   for (let verb in verbs) {
     const verbFunction: string = verb.toLowerCase();
     if (verbsAllowed.indexOf(verbFunction) === -1) return;
@@ -21,7 +25,11 @@ const createApi = (app: appType) => (path: string, verbs: Object, Router: expres
   return Router;
 };
 
-const createRoute = (app: appType) => (path: string, verb: string, handler: Function, Router: express.Router) => {
+const createRoute = (app: appType) => (path: string, verb: string, handler: Function, options: Object = {}) => {
+  const Router = express.Router();
+  const { middleware } = options;
+  if (middleware) middleware.forEach((fn) => Router.use(fn));
+
   // $FlowIgnore:
   Router[verb](path, handler);
   app.routes.push(`${verb} ${path}`);

@@ -21,7 +21,8 @@ import * as pingController from './controller/ping';
 import * as userController from './controller/auth';
 
 // Import sequelize
-import { sequelize } from "./models";
+import db from "./models";
+const { sequelize } = db;
 
 const app = express();
 const Router = express.Router();

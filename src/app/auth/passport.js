@@ -20,10 +20,10 @@ const { User } = models;
 
 export default () => {
   passport.use('signup', new LocalStrategy({
-    usernameField: 'email',
+    usernameField: 'username',
     passwordField: 'password'
-  }, function (email, password, cb) {
-    return User.findOne({ where: { email } })
+  }, function (username, password, cb) {
+    return User.findOne({ where: { username } })
       .then(user => {
         if (user) {
           return cb(null, false, {error: 'User already exists.'});
@@ -33,10 +33,10 @@ export default () => {
       })
       .then(() => {
         password = passwordHash.generate(password);
-        return User.create({ email, password });
+        return User.create({ username, password });
       })
       .then(() => {
-        return User.findOne({ where: { email } });
+        return User.findOne({ where: { username } });
       })
       .then((user) => {
         return cb(null, user.dataValues);
@@ -45,10 +45,10 @@ export default () => {
   }));
 
   passport.use('login', new LocalStrategy({
-    usernameField: 'email',
+    usernameField: 'username',
     passwordField: 'password'
-  }, function (email, password, cb) {
-    return User.findOne({ where: { email } })
+  }, function (username, password, cb) {
+    return User.findOne({ where: { username } })
       .then(user => {
         if (!user) {
           return cb(null, false, {error: 'User does not exist.'});

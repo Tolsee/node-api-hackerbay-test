@@ -85,8 +85,8 @@ Router.use('/', PingRoute);
 const LoginRoute = route('/login', 'post', userController.login);
 const SignupRoute = route('/signup', 'post', userController.signup);
 
-const PatchRoute = api('/patch', patchController);
-const thumbnailRoute = api('/thumbnail', thumbnailController);
+const PatchRoute = api('/patch', patchController, { middleware: [authMiddleware] });
+const thumbnailRoute = api('/thumbnail', thumbnailController, { middleware: [authMiddleware] });
 
 Router.use('/user', LoginRoute);
 Router.use('/user', SignupRoute);

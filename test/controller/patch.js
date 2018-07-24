@@ -2,6 +2,9 @@ import chai from 'chai';
 import { expect } from 'chai';
 import chaiHttp from 'chai-http';
 import { server } from '../../build';
+import models from '../../build/app/models'
+
+const { User } = models;
 
 chai.use(chaiHttp);
 
@@ -17,9 +20,13 @@ describe('POST /patch route', function() {
 
   let Authorization;
 
-  beforeEach(done => {
+  before(done => {
+    User.destroy({
+      where: {},
+      truncate: true
+    }).then(() => {
       chai.request(server)
-        .post('/user/login')
+        .post('/user/signup')
         .send({ username: 'hellouser', password: 'correctpassword' })
         .end(function(err, res){
           if (!err) {
@@ -28,6 +35,7 @@ describe('POST /patch route', function() {
           }
           done();
         });
+    });
   });
 
   it('should not success with out session', done => {

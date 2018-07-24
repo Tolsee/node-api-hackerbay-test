@@ -30,6 +30,17 @@ describe('POST /patch route', function() {
         });
   });
 
+  it('should not success with out session', done => {
+    chai.request(server)
+      .post('/patch')
+      .send({ object, patch })
+      .end(function(err, res){
+        expect(err).to.be.null;
+        expect(res).to.have.status(401);
+        done();
+      })
+  });
+
   it('should return success', done => {
     chai.request(server)
       .post('/patch')

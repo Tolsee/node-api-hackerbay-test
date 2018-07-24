@@ -1,6 +1,6 @@
-[![Build Status](https://travis-ci.org/Tolsee/hacker-bay-week-6.svg?branch=master)](https://travis-ci.org/Tolsee/hacker-bay-week-6)  [![codecov](https://codecov.io/gh/Tolsee/hacker-bay-week-6/branch/master/graph/badge.svg)](https://codecov.io/gh/Tolsee/hacker-bay-week-6)
-# hacker-bay-week-3
-This repository serves as a weekly task of hackerbay university.
+[![Build Status](https://travis-ci.org/Tolsee/node-api-hackerbay-test.svg?branch=master)](https://travis-ci.org/Tolsee/node-api-hackerbay-test)  [![codecov](https://codecov.io/gh/Tolsee/node-api-hackerbay-test/branch/master/graph/badge.svg)](https://codecov.io/gh/Tolsee/node-api-hackerbay-test)
+# Node simple api for test
+
 
 ## Installation
 
@@ -9,6 +9,8 @@ This repository serves as a weekly task of hackerbay university.
 `npm install`
 
 ## Running
+
+##### Before running please copy .env.example to .env
 
 `yarn start`
 
